@@ -1,11 +1,13 @@
 import React from "react";
 import Header from "./Components/Layout/Header";
-import MealSummery from "./Components/Meals/MealSummry";
+import Meals from "./Components/Meals/Meals";
 function App() {
   return (
     <>
       <Header/>
-      <MealSummery/>
+    <main>
+      <Meals/>
+    </main>
     </>
   );
 }
