@@ -7,11 +7,11 @@ const price = `Rs.${props.price.toFixed(2)}`;
       <li className={classes.meal}>
         <div>
           <h3>{props.name}</h3>
-          <div className={classes.desccription}>{props.description}</div>
+          <div className={classes.description}>{props.description}</div>
           <div className={classes.price}>{price}</div>
         </div>
         <div>
-          <MealsItemForm id={props.id} />
+          <MealsItemForm id={props.id} item= {props}/>
         </div>
       </li>
     );
