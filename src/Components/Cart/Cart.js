@@ -12,19 +12,22 @@ const Cart = (props) => {
 
   const addItemHandler = (item) => {
     const index = cartctx.items.findIndex((obj) => obj.id === item.id);
-    if (index !== -1) {
-      cartctx.addItem({quantity: parseInt(item.quantity)+1 });
-    }else{
-      cartctx.addItem({ ...item, quantity: parseInt(item.quantity) });
+    if (index >= 0) {
+      const updatedItems = [...cartctx.items];
+      updatedItems[index].quantity += parseInt(item.quantity);
+      cartctx.updateQuantity(updatedItems[index]);
+    } else {
+      cartctx.addItem({ ...item, quantity: item.quantity++ });
     }
   };
+
 
   const CartItems = (
     <ul className={classes["cart-items"]}>
       {cartctx.items.map((item) => (
         <>
           <li key={item.id}>
-            {item.name} Rs.{item.price} {parseInt(item.quantity)}
+            {item.name} Rs.{item.price} {item.quantity}
             <button onClick={() => removeItemHandler(item.id)}>-</button>
             <button onClick={() => addItemHandler(item)}>+</button>
           </li>
