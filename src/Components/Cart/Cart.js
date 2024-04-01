@@ -6,21 +6,27 @@ import CartContext from "../../store/cart-context";
 const Cart = (props) => {
   const cartctx = useContext(CartContext);
 
-  const removeItemHandler = (id) => {
-    cartctx.removeItem(id);
-  };
+  // const removeItemHandler = (id) => {
+  //   cartctx.removeItem(id);
+  // };
 
-  const addItemHandler = (item) => {
-    const index = cartctx.items.findIndex((obj) => obj.id === item.id);
-    if (index >= 0) {
-      const updatedItems = [...cartctx.items];
-      updatedItems[index].quantity += parseInt(item.quantity);
-      cartctx.updateQuantity(updatedItems[index]);
-    } else {
-      cartctx.addItem({ ...item, quantity: item.quantity++ });
-    }
-  };
-
+  // const addItemHandler = (item) => {
+  //   cartctx.addItem(item);
+  //   // const index = cartctx.items.findIndex((obj) => obj.id === item.id);
+  //   // if (index >= 0) {
+  //   //   const updatedItems = [...cartctx.items];
+  //   //   updatedItems[index].quantity += parseInt(item.quantity);
+  //   //   cartctx.updateQuantity(updatedItems[index]);
+  //   // } else {
+  //   //   cartctx.addItem({ ...item, quantity: item.quantity++ });
+  //   // }
+  // };
+const handleIncrement = (id)=>{
+  cartctx.changeQuantity(id,1)
+}
+const handleDecrement = (id)=>{
+  cartctx.changeQuantity(id,-1)
+}
 
   const CartItems = (
     <ul className={classes["cart-items"]}>
@@ -28,15 +34,14 @@ const Cart = (props) => {
         <>
           <li key={item.id}>
             {item.name} Rs.{item.price} {item.quantity}
-            <button onClick={() => removeItemHandler(item.id)}>-</button>
-            <button onClick={() => addItemHandler(item)}>+</button>
+            <button onClick={() => handleDecrement(item.id)}>-</button>
+            <button onClick={() => handleIncrement(item.id)}>+</button>
           </li>
           <hr />
         </>
       ))}
     </ul>
   );
-  console.log(CartItems);
 
   const total = cartctx.items.reduce(
     (acc, curr) => (acc = acc + curr.quantity * curr.price),
