@@ -15,9 +15,10 @@ const CartProvider = (props)=>{
 
 console.log("itemIndex",itemIndex);
   let updatedItems = [...items];
-
-  updatedItems[itemIndex].quantity = updatedItems[itemIndex].quantity + Quantity;
-
+console.log(typeof updatedItems[itemIndex].quantity);
+let q = Number(updatedItems[itemIndex].quantity);
+  updatedItems[itemIndex].quantity = q + Quantity;
+console.log(typeof q);
   if (updatedItems[itemIndex].quantity === 0) {
     updatedItems = updatedItems.filter((item) => item.id !== id);
   }
